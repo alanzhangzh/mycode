@@ -1,0 +1,124 @@
+/* ==========================================================================
+   style.css —— 简约风格个人名片样式
+   说明：本文件独立于 HTML 结构，负责名片的全部外观与交互效果
+   ========================================================================== */
+
+/* ---------- CSS 变量：统一管理配色与圆角，便于后期维护 ---------- */
+:root {
+    --card-bg: #ffffff;              /* 卡片背景色：纯白，简洁干净 */
+    --page-bg: #f5f6f8;              /* 页面背景色：浅灰，衬托卡片主体 */
+    --text-main: #2c3e50;            /* 主文字色：深蓝灰 */
+    --text-sub: #7f8c8d;             /* 次要文字色：柔和灰 */
+    --accent: #5c6bc0;               /* 强调色：淡靛蓝，用于悬停等效果 */
+    --card-radius: 12px;             /* 卡片圆角：按要求设为 12px */
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.10),  /* 柔和阴影层 1 */
+                   0 4px 12px rgba(0, 0, 0, 0.06);  /* 柔和阴影层 2（叠加更立体） */
+}
+
+/* ---------- 基础样式重置 ---------- */
+* {
+    margin: 0;      /* 清除默认外边距 */
+    padding: 0;     /* 清除默认内边距 */
+    box-sizing: border-box; /* 采用边框盒模型，方便尺寸控制 */
+}
+
+body {
+    /* 页面背景，浅灰突出白色卡片 */
+    background-color: var(--page-bg);
+    /* 使用弹性布局实现内容水平、垂直双向居中 */
+    display: flex;
+    align-items: center;   /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    min-height: 100vh;     /* 占满整个视口高度，确保居中效果 */
+    font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-main);
+}
+
+/* ---------- 名片卡片主体样式 ---------- */
+.card {
+    width: 360px;            /* 固定卡片宽度，保持简约比例 */
+    background-color: var(--card-bg);
+    /* 应用 12px 圆角 */
+    border-radius: var(--card-radius);
+    /* 应用柔和的层叠阴影 */
+    box-shadow: var(--shadow-soft);
+    /* 内部垂直方向留白，营造呼吸感 */
+    padding: 40px 32px 36px;
+    text-align: center;      /* 内容统一居中 */
+
+    /* 助力悬停放大时的高质量渲染 */
+    will-change: transform;
+    /* 优雅地过渡 transform 属性，实现平滑的上浮动画 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 鼠标悬停悬浮上浮动画：卡片整体向上轻微移动并加深阴影 */
+.card:hover {
+    transform: translateY(-8px);       /* 向上平移 8px，产生悬浮感 */
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14), /* 悬停时阴影加深 */
+                0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- 圆形头像样式 ---------- */
+.avatar {
+    width: 110px;            /* 头像宽高固定为 110px */
+    height: 110px;
+    margin: 0 auto 20px;     /* 水平居中，底部留白 */
+    border-radius: 50%;      /* 50% 圆角形成正圆 */
+    background: linear-gradient(135deg, var(--accent), #82b1ff); /* 渐变背景 */
+    display: flex;           /* 让字母在圆内居中 */
+    align-items: center;
+    justify-content: center;
+    /* 头像外柔和光环 */
+    box-shadow: 0 4px 12px rgba(92, 107, 192, 0.35);
+}
+
+/* 头像内的占位字母（可替换为图片） */
+.avatar-letter {
+    color: #fff;
+    font-size: 44px;
+    font-weight: 600;
+}
+
+/* ---------- 姓名样式 ---------- */
+.name {
+    font-size: 24px;         /* 醒目的姓名字号 */
+    font-weight: 700;
+    margin-bottom: 6px;      /* 与职位之间留白 */
+    letter-spacing: 1px;     /* 轻微字间距增强质感 */
+}
+
+/* ---------- 职位样式 ---------- */
+.title {
+    font-size: 15px;
+    color: var(--text-sub);  /* 次要文字色，降低视觉权重 */
+    margin-bottom: 26px;     /* 与联系方式区隔开 */
+    letter-spacing: 2px;     /* 中等字间距，简约风格常用 */
+}
+
+/* ---------- 联系方式区域 ---------- */
+.contact {
+    display: flex;            /* 横向排列邮箱与电话 */
+    flex-direction: column;   /* 竖排，更清爽易读 */
+    gap: 12px;                /* 子项之间的间距 */
+    font-size: 14px;
+}
+
+/* 单个联系方式链接 */
+.contact-item {
+    display: inline-flex;     /* 内联弹性布局，图标与文字水平对齐 */
+    align-items: center;
+    justify-content: center;  /* 内容居中 */
+    gap: 8px;                 /* 图标与文字间距 */
+    color: var(--text-sub);
+    text-decoration: none;    /* 去掉下划线，保持简约 */
+    padding: 8px 0;
+    border-radius: 8px;       /* 轻微圆角，提升细节 */
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* 悬停时联系方式变色，予以呼应 */
+.contact-item:hover {
+    color: var(--accent);
+    background-color: rgba(92, 107, 192, 0.08);
+}
